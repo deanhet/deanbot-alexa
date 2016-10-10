@@ -1,6 +1,8 @@
 const config = {
   wifiPassword: '',
-  bankEndpoint: ''
+  bankEndpoint: '',
+  iCloudPassword: '',
+  iCloudEmail: ''
 }
 
 export default config;

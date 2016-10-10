@@ -6,6 +6,7 @@ import Alexa from 'alexa-app';
 const app = new Alexa.app('deanbot');
 import config from './config';
 import BankDataHelper from './bankDataHelper';
+import PhoneFinderHelper from './phoneFinderHelper';
 
 app.launch(function(req, res){
   var prompt = 'Help feature coming soon';
@@ -16,11 +17,13 @@ app.intent('deanbot', {
   'slots':{
     'TASK': 'TASKS'
   },
-  'utterances': ['{|get|to get|for} {|the} {-|TASK}']
+  'utterances': ['{|where is|get|to get|for|to find} {|the} {-|TASK}']
 },
   function(req,res){
     let task = req.slot('TASK');
     if(!_.isEmpty(task)){
+              console.log(task);
+
       switch(task){
         case "bank balance": {
           const bankHelper = new BankDataHelper();
@@ -36,6 +39,17 @@ app.intent('deanbot', {
         case 'WiFi password': {
           let prompt = `Your WiFi password is ${config.wifiPassword}, <say-as interpret-as="spell-out">${config.wifiPassword}</say-as>`;
           res.say(prompt).shouldEndSession(true).send();
+          return false;
+        }
+        case 'my phone':{
+          const phoneFinder = new PhoneFinderHelper();
+          phoneFinder.fetchDevices().then(() => {
+            res.say('I\'ve done that for you.').shouldEndSession(true).send();
+          }).catch((err) => {
+            console.log(err);
+            let prompt = 'Trouble connecting to icloud';
+            res.say(prompt).shouldEndSession(true).send();
+          });
           return false;
         }
         default: {
