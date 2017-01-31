@@ -1,5 +1,6 @@
 # deanbot-alexa
-Amazon Alexa skill written with ES6. Designing to be as extensible as possible. Have multiple actions on one skill.
+Amazon Alexa skill written with ES6. Have multiple actions on one skill.
+Stopped development as I returned this and bought a Google Home instead. Happy to lend a hand if you want to get this up and running though.
 
 # Running
 - First of all pull this repo and run `npm install`. 
